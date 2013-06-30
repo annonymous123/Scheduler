@@ -19,7 +19,6 @@ public class CallSetter implements Runnable,VariableSetter{
   
 	public void run(){
 		Time lowertime=new Time((new Date()).getTime());
-		System.out.println(lowertime);
 		
 		List<MedicineInformer> listOfIVRCaller=(new MedicineInformer()).getPatientInfoOnTime(lowertime,IVR_TYPE);
 		List<MedicineInformer> listOfSMSCaller=(new MedicineInformer()).getPatientInfoOnTime(lowertime,SMS_TYPE);
@@ -32,7 +31,6 @@ public class CallSetter implements Runnable,VariableSetter{
 			setSMSThread(listOfSMSCaller);
 		else System.out.println("In CallSetter:run-No SMSTuple found for the next hour");
 		
-		System.out.println("Exiting CallSetter:run()");
 			
 	}
 	
@@ -48,9 +46,7 @@ public class CallSetter implements Runnable,VariableSetter{
 			try{
 				Date preTime=df.parse(df.format(a.getTime()));
 				Date sysTime = df.parse(df.format(new Date()));
-			    	System.out.println(sysTime);
 			    	long diff=preTime.getTime()-sysTime.getTime();
-			    	System.out.println(diff);
 				executor.schedule(caller,diff,TimeUnit.MILLISECONDS)
 			}
 			catch(Exception ex){
@@ -73,9 +69,7 @@ public class CallSetter implements Runnable,VariableSetter{
 			try{
 				Date preTime=df.parse(df.format(a.getTime()));
 				Date sysTime = df.parse(df.format(new Date()));
-			    	System.out.println(sysTime);
 			    	long diff=preTime.getTime()-sysTime.getTime();
-			    	System.out.println(diff);
 				executor.schedule(messager,diff,TimeUnit.MILLISECOND
 			}
 			catch(Exception ex){
