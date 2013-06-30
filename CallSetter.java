@@ -24,6 +24,7 @@ public class CallSetter implements Runnable,VariableSetter{
 	static Logger logger = Logger.getLogger(CallSetter.class);
 	
 	public void run(){
+		PropertyConfigurator.configure("log4j.properties");
 		Time lowertime=new Time((new Date()).getTime());
 		
 		List<MedicineInformer> listOfIVRCaller=(new MedicineInformer()).getPatientInfoOnTime(lowertime,IVR_TYPE);
@@ -42,7 +43,7 @@ public class CallSetter implements Runnable,VariableSetter{
 	}
 	
 	public void setIVRThread(List<MedicineInformer> list){
-		PropertyConfigurator.configure("log4j.properties");
+		
 		ScheduledExecutorService executor = Executors.newScheduledThreadPool(THREAD_POOL_CALL_SETTER);
 		int count=0;
 		DateFormat df = new SimpleDateFormat("hh:mm:ss");
