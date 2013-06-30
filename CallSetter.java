@@ -40,16 +40,18 @@ public class CallSetter implements Runnable,VariableSetter{
 		
 		ScheduledExecutorService executor = Executors.newScheduledThreadPool(THREAD_POOL_CALL_SETTER);
 		int count=0;
-		
+		DateFormat df = new SimpleDateFormat("hh:mm:ss");
 		while(count<list.size()){
 			MedicineInformer a;
 			a=list.get(count);
 			Caller caller=new Caller(a);
 			try{
-				Time time=a.getTime();
-				Time currentTime=new Time((new Date()).getTime());
-				long diff=time.getTime()-currentTime.getTime();
-				executor.schedule(caller,diff,TimeUnit.MILLISECONDS);
+				Date preTime=df.parse(df.format(a.getTime()));
+				Date sysTime = df.parse(df.format(new Date()));
+			    	System.out.println(sysTime);
+			    	long diff=preTime.getTime()-sysTime.getTime();
+			    	System.out.println(diff);
+				executor.schedule(caller,diff,TimeUnit.MILLISECONDS)
 			}
 			catch(Exception ex){
 				System.out.println("In function setIVRThread:Error Occured");
@@ -63,16 +65,18 @@ public class CallSetter implements Runnable,VariableSetter{
 	public void setSMSThread(List<MedicineInformer> list){
 		ScheduledExecutorService executor = Executors.newScheduledThreadPool(THREAD_POOL_CALL_SETTER);
 		int count=0;
-		
+		DateFormat df = new SimpleDateFormat("hh:mm:ss");
 		while(count<list.size()){
 			MedicineInformer a;
 			a=list.get(count);
 			Messager messager=new Messager(a);
 			try{
-				Time time=a.getTime();
-				Time currentTime=new Time((new Date()).getTime());
-				long diff=time.getTime()-currentTime.getTime();
-				executor.schedule(messager,diff,TimeUnit.MILLISECONDS);
+				Date preTime=df.parse(df.format(a.getTime()));
+				Date sysTime = df.parse(df.format(new Date()));
+			    	System.out.println(sysTime);
+			    	long diff=preTime.getTime()-sysTime.getTime();
+			    	System.out.println(diff);
+				executor.schedule(messager,diff,TimeUnit.MILLISECOND
 			}
 			catch(Exception ex){
 				System.out.println("In function setSMSThread:Error Occured");
